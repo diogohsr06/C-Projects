@@ -1,32 +1,17 @@
-#include <iostream>
 #include <raylib.h>
-#include "Racket.hpp"
-#include "Ball.hpp"
+#include "Game.hpp"
 
-const Color BACKGROUND = { 0, 0, 0, 255 };
-
+//Incomplete
 int main() {
-    InitWindow(600, 900, "Arkanoid By Diogo");
+    InitWindow(600, 900, "Arkanoid");
     SetTargetFPS(144);
-    Racket racket;
-    Ball ball;
+    Game game;
     while (!WindowShouldClose()) {
-        racket.move();
-        ball.Update(racket);
+        game.Update();
         BeginDrawing();
         ClearBackground(BLACK);
-        racket.Draw();
-        ball.Draw();
+        game.Draw();
         EndDrawing();
     }
     CloseWindow();
-
-    return 0;
 }
-
-
-
-
-
-
-
