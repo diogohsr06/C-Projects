@@ -36,7 +36,7 @@ class Snake {
         Vector2 direction = Vector2{1, 0};
         void Draw() {
             for (unsigned int i = 0; i < body.size(); i++) {
-                DrawRectangle(body[i].x * cellSize, body[i].y * cellSize, cellSize, cellSize, darkGreen);
+                DrawRectangle(body[i].x * cellSize, body[i].y * cellSize, cellSize, cellSize, green);
             }
         }
         void UpdateDir(){
@@ -50,7 +50,7 @@ class Apple {
         deque<Vector2> snakeBody;
         Vector2 position = generateRandomPos(snakeBody);
         void Draw() {
-            DrawRectangle(position.x * cellSize, position.y * cellSize, cellSize, cellSize, darkGreen);
+            DrawRectangle(position.x * cellSize, position.y * cellSize, cellSize, cellSize, RED);
         }
         Vector2 generateRandomPos(deque<Vector2> snakeBody) {
             float x = GetRandomValue(0, cellCount - 1);
@@ -68,9 +68,10 @@ class Game {
         Snake snake = Snake();
         Apple apple = Apple();
 
-        void Draw() {
+        void Draw(int score) {
             apple.Draw();
             snake.Draw();   
+            DrawText(TextFormat("Score: %i", score),10,10,30,WHITE);
         }
         void Update() {
             snake.UpdateDir();
@@ -99,6 +100,7 @@ class Game {
         void GameOver() {
             snake.body = {Vector2{6, 9}, Vector2{5, 9}, Vector2{4, 9}};
             snake.direction = Vector2{1, 0};
+            apple.position = apple.generateRandomPos(snake.body);
         }
 };
 
@@ -127,8 +129,8 @@ int main() {
         if (IsKeyPressed(KEY_RIGHT) && game.snake.direction.x != -1) {
             game.snake.direction = Vector2{1, 0};
         }
-        ClearBackground(green);
-        game.Draw();
+        ClearBackground(BLACK);
+        game.Draw(game.snake.body.size() - 3);
         EndDrawing();
     }
 
